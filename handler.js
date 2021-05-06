@@ -12,18 +12,18 @@ function response(statusCode, message){
   };
 }
 
-//const formatResponse = function(statusCode, body) {
-//  const response = {
-//      statusCode: statusCode,
-//      headers: {
-//          "Access-Control-Allow-Origin": "*",
-//          "Content-Type": "application/json"
-//      },
-//      isBase64Encoded: false,
-//      body: JSON.stringify(body)
-//  };
-//  return response;
-// };
+const formatResponse = function(statusCode, body) {
+  const response = {
+      statusCode: statusCode,
+      headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+      },
+      isBase64Encoded: false,
+      body: JSON.stringify(body)
+  };
+  return response;
+ };
 
 
 //module.exports.createPost =async (event, callback) => {
@@ -57,12 +57,12 @@ module.exports.createPost= async (event, context, callback) => {
     title: reqBody.title,
     body: reqBody.body
   };
-
-  return db.put({
+  const result =await db.put({
     TableName: postsTable,
     Item: post
   }).promise().then(() => {
     callback(null, response(201, post))
   })
   .catch(err => response(null,response(err.statusCode, err)));
+  return formatResponse(200,result)
 }
