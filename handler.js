@@ -47,7 +47,7 @@ const formatResponse = function(statusCode, body) {
 //  return ('post is inserted');
 // }
 
-module.exports.createPost= async (event, context, callback) => {
+exports.createPost= async (event, context, callback) => {
   const reqBody= JSON.parse(event.body)
   console.log(reqBody)
 
